@@ -78,7 +78,7 @@ zig build test
 | SUN           | ✔️            | ❌            |
 | TGA           | ✔️            | ✔️            |
 | TIFF          | ✔️ (Partial)  | ❌            |
-| XBM           | ❌            | ❌            |
+| XBM           | ✔️            | ❌            |
 | XPM           | ❌            | ❌            |
 
 ### BMP - Bitmap
@@ -186,6 +186,9 @@ Currently, this only supports a subset of PAMs where:
 * Only the first IFD is decoded
 * Orientation tag is not supported yet
 
+### XBM - X BitMap format
+* Everything is supported
+
 ## Supported Pixel formats
 
 * **Indexed**: 1bpp (bit per pixel), 2bpp, 4bpp, 8bpp, 16bpp
@@ -245,7 +248,7 @@ pub fn main() !void {
     var file = try std.fs.cwd().openFile(file_path, .{});
     defer file.close();
 
-    var image = try zigimg.Image.fromFile(allocator, file);
+    var image = try zigimg.Image.fromFile(allocator, &file);
     defer image.deinit();
 
     // Do something with your image
